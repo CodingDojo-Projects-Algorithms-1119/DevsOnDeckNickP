@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Welcome to DevsOnDeck</title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="{{url_for('static', filename='./emailcheck.js')}}"></script>    
+
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login_page">Returning User? Click here!</a>
+        </li>        
+        </ul>
+    </div>
+    </nav>
+    <br>
+    <!-- tabbed content -->
+    <div class="container-fluid">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="dev_reg-tab" data-toggle="tab" href="#dev_reg" role="tab" aria-controls="dev_reg" aria-selected="true">Developer Registration</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="org_reg-tab" data-toggle="tab" href="#org_reg" role="tab" aria-controls="org_reg" aria-selected="false">Organization Registration</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="dev_reg" role="tabpanel" aria-labelledby="dev_reg-tab">        
+            <div class="tab_back">
+            <br>
+            <h4 class="tab_header">Developer Registration:</h4>
+            <br>
+            <form id="form_check" class="tab_content" action="/register" method="POST">
+                <input type="hidden" name="switch" value="dev">
+                <div class="form-row">
+                    <div class="col">
+                    <label>First Name: </label><input class="form-control" type="text" name="fname" placeholder="First Name">
+                    </div>
+                    <div class="col">
+                    <label>Last Name: </label><input class="form-control" type="text" name="lname" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email: </label><input id="email_check" class="form-control" type="text" name="email" placeholder="Email@address.com">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <div id="invalid"></div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                    <label>Street Address: </label><input class="form-control" type="text" name="address" placeholder="Street Address">
+                    </div>
+                    <div class="col">
+                    <label>City:</label><input class="form-control" type="text" name="city" placeholder="City">
+                    </div>
+                    <div>
+                    <label>State:</label><select class="custom-select" name="state">
+                        <option selected>Select your state</option>
+                        <option value="AL">AL</option>
+                        <option value="AK">AK</option>
+                        <option value="AR">AR</option>
+                        <option value="AZ">AZ</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DC">DC</option>
+                        <option value="DE">DE</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="IA">IA</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="MA">MA</option>
+                        <option value="MD">MD</option>
+                        <option value="ME">ME</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MO">MO</option>
+                        <option value="MS">MS</option>
+                        <option value="MT">MT</option>
+                        <option value="NC">NC</option>
+                        <option value="NE">NE</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NV">NV</option>
+                        <option value="NY">NY</option>
+                        <option value="ND">ND</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VT">VT</option>
+                        <option value="VA">VA</option>
+                        <option value="WA">WA</option>
+                        <option value="WI">WI</option>
+                        <option value="WV">WV</option>
+                        <option value="WY">WY</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                    <label>Password:</label><input class="form-control" type="password" name="password">
+                    </div>
+                    <div class="col">
+                    <label>Confirm Password:</label> <input class="form-control" type="password" name="confirmpass">
+                    </div>
+                </div>
+                <div class="reg_button"><button type="submit" class="btn btn-primary">Submit</button></div>
+            </form>
+                    {% with messages = get_flashed_messages() %}    
+                    {% if messages %}                            
+                        {% for message in messages %}           
+                            <p style="color:red">{{message}}</p> 
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}         
+            </div>
+        </div>
+        <div class="tab-pane fade" id="org_reg" role="tabpanel" aria-labelledby="org_reg-tab">
+            <div class="tab_back">
+                <br>
+                <h4 class="tab_header">Organization Registration:</h4>
+                <br>
+                <form id="form_check" class="tab_content" action="/register" method="POST">
+                    <input type="hidden" name="switch" value="org">
+                    <div class="form-group">
+                        <label>Organization Name: </label><input class="form-control" type="text" name="orgname" placeholder="Organziation Name">
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                        <label>First Name: </label><input class="form-control" type="text" name="fname" placeholder="First Name">
+                        </div>
+                        <div class="col">
+                        <label>Last Name: </label><input class="form-control" type="text" name="lname" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email: </label><input id="email_check" class="form-control" type="text" name="email" placeholder="Email@address.com">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <div id="invalid"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                        <label>Organization Address: </label><input class="form-control" type="text" name="address" placeholder="Street Address">
+                        </div>
+                        <div class="col">
+                        <label>City:</label><input class="form-control" type="text" name="city" placeholder="City">
+                        </div>
+                        <div>
+                        <label>State:</label><select class="custom-select" name="state">
+                            <option selected>Select your state</option>
+                            <option value="AL">AL</option>
+                            <option value="AK">AK</option>
+                            <option value="AR">AR</option>
+                            <option value="AZ">AZ</option>
+                            <option value="CA">CA</option>
+                            <option value="CO">CO</option>
+                            <option value="CT">CT</option>
+                            <option value="DC">DC</option>
+                            <option value="DE">DE</option>
+                            <option value="FL">FL</option>
+                            <option value="GA">GA</option>
+                            <option value="HI">HI</option>
+                            <option value="IA">IA</option>
+                            <option value="ID">ID</option>
+                            <option value="IL">IL</option>
+                            <option value="IN">IN</option>
+                            <option value="KS">KS</option>
+                            <option value="KY">KY</option>
+                            <option value="LA">LA</option>
+                            <option value="MA">MA</option>
+                            <option value="MD">MD</option>
+                            <option value="ME">ME</option>
+                            <option value="MI">MI</option>
+                            <option value="MN">MN</option>
+                            <option value="MO">MO</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="NC">NC</option>
+                            <option value="NE">NE</option>
+                            <option value="NH">NH</option>
+                            <option value="NJ">NJ</option>
+                            <option value="NM">NM</option>
+                            <option value="NV">NV</option>
+                            <option value="NY">NY</option>
+                            <option value="ND">ND</option>
+                            <option value="OH">OH</option>
+                            <option value="OK">OK</option>
+                            <option value="OR">OR</option>
+                            <option value="PA">PA</option>
+                            <option value="RI">RI</option>
+                            <option value="SC">SC</option>
+                            <option value="SD">SD</option>
+                            <option value="TN">TN</option>
+                            <option value="TX">TX</option>
+                            <option value="UT">UT</option>
+                            <option value="VT">VT</option>
+                            <option value="VA">VA</option>
+                            <option value="WA">WA</option>
+                            <option value="WI">WI</option>
+                            <option value="WV">WV</option>
+                            <option value="WY">WY</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                        <label>Password:</label><input class="form-control" type="password" name="password">
+                        </div>
+                        <div class="col">
+                        <label>Confirm Password:</label> <input class="form-control" type="password" name="confirmpass">
+                        </div>
+                    </div>
+                    <div class="reg_button"><button type="submit" class="btn btn-primary">Submit</button></div>
+                </form>
+                        {% with messages = get_flashed_messages() %}    
+                        {% if messages %}                            
+                            {% for message in messages %}           
+                                <p style="color:red">{{message}}</p> 
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}         
+                </div>            
+        </div>
+    </div>
+    </div>
+
+<br><br><br>
+    <p>-------------------------</p>
+    {% for onelang in lang %}
+    {{onelang.lang_id}} {{onelang.lang_name}},
+    {% endfor %}
+    <br>
+<br>
+<p>all dev accounts</p>
+{%for dev in devs %}
+<p>{{dev.email}}</p>
+{%endfor%}
+<br>
+<p>all org accounts</p>
+{%for org in orgs %}
+<p>{{org.email}}</p>
+{%endfor%}       
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+    jQuery(document).ready(function($) {
+
+    // Javascript to enable link to tab
+    var url = document.location.toString();
+    if (url.match('#')) {
+        $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+    } 
+
+    // Change hash for page-reload
+    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+        window.location.hash = e.target.hash;
+        });
+    }); 
+    </script>
+</body>
+</html>

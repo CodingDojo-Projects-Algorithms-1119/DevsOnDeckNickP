@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Position</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>   
+
+    <script>
+    $(document).ready(function () {
+        $('.add_language :checkbox').change(function () {
+        var $cs=$(this).closest('.add_language').find(':checkbox:checked');
+        if ($cs.length > 5) {
+            this.checked=false;
+        }
+        if ($cs.lenth > 4) {
+            $("input:checkbox:not(:checked)").prop('disabled',true);
+        }
+        });
+    });
+    </script>    
+
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>           
+        <li class="form-inline nav-item">
+                <a class="nav-link" href="/org_landing">Go back</a>
+        </li>
+    </div>
+    </nav>    
+
+    <!-- content -->
+    <div class="card">
+        <div class="card-header text-center">
+            <h2 class="mx-auto display-5" style="width: 50%">Add A Position<b></b></h2>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                        <form action="/new_position" id="new_position" method="POST">
+                            <div class="form-group">
+                                <label><h4>Job Title: </h4></label>
+                                {% with messages = get_flashed_messages() %}    
+                                {% if messages %}                            
+                                    {% for message in messages %}           
+                                        <p style="color:red">{{message}}</p> 
+                                    {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                                <input class="form-control" type="text" name="title">
+                                <br>
+                                <label><h4>Description: </h4></label><textarea class="form-control" form="new_position" rows="10" placeholder="Add more about the position here" name="description"></textarea>
+                                <br>
+                                <div class="blue">
+                                <label><h4>Required Skills:</h4> <small class="form-text text-muted">Choose up to five</small></label>
+                                <table class="table">
+                                        <tbody>
+                                            <tr>
+                                            <td><input type="checkbox" name="pos_lang" value="1"><span class="blue" >  HTML</span></td>
+                                            <td><input type="checkbox" name="pos_lang" value="2">  CSS</td>
+                                            <td><input type="checkbox" name="pos_lang" value="3">  Ruby</td>
+                                            <td><input type="checkbox" name="pos_lang" value="4">  Python</td>
+                                            </tr>
+                                            <tr>
+                                            <td><input type="checkbox" name="pos_lang" value="5">  JS</td>
+                                            <td><input type="checkbox" name="pos_lang" value="6">  Java</td>
+                                            <td><input type="checkbox" name="pos_lang" value="7">  C#</td>
+                                            <td><input type="checkbox" name="pos_lang" value="8">  C++</td>
+                                            </tr>
+                                            <td><input type="checkbox" name="pos_lang" value="9">  SQL</td>
+                                            <td><input type="checkbox" name="pos_lang" value="10">  Django</td>
+                                            <td><input type="checkbox" name="pos_lang" value="11">  Flask</td>
+                                            <td><input type="checkbox" name="pos_lang" value="12">  Rails</td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+                                </div >
+                            </div>                
+                        <button class="btn btn-primary right_side" type="submit">Save Position</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+
+</body>
+</html>

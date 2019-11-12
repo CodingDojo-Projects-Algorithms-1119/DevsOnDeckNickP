@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{user.fname}} {{user.lname}}'s Profile</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="/org_landing"><h2 class="center_nav_text display-5">{{user.orgname}}</h2></a>
+            </li>   -->
+        </ul>
+        <li class="form-inline nav-item">
+                <a class="nav-link" href="/dev_landing">Edit Profile</a>
+        </li>           
+        <li class="form-inline nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+    </div>
+    </nav>
+    <div class="card">
+        <div class="card-header text-center">
+            <h2 class="mx-auto display-5" style="width: 50%;">Hello {{user.fname}} {{user.lname}}</h2>
+        </div>
+        <div class="card-body border-bottom">
+            <h5 class="card-title text-center">Hello {{user.fname}} {{user.lname}}!</h5>
+            <p class="card-text text-center">Here you can view the various positions organizations have posted.</p> 
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col border-right">
+                        <h3 class="btn btn-primary btn-lg btn-block">Applied Positions</h3>
+                        <hr>
+                        <ul>
+                        {% for position in user.applied %}
+                        {% if position  %}
+                        <li>
+                            <p><span class="dev_name2">{{position.name}}</span><small class="form-text text-muted">{{position.owner.orgname}}</small></p>
+                        <span><a href="/unapply/{{position.position_id}}">Remove Application</a></span></p>
+                    </li>
+                    <br>
+                    {% endif %}
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="col-9">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-dark text-center"><h4>Positions Available</h4></li>
+                            {% for position in positions|sort(attribute="match", reverse = True) %}
+                            <li class="list-group-item">
+                                <p><span class="dev_name">{{position.name}} {{position.position_id}}</span> 
+                                    <span class="dev_skills">Required Skills:
+                                        {% for lang in position.langs%}
+                                        {{lang.lang_name}} 
+                                        {% endfor %}
+                                    </span><small class="form-text text-muted">offered by {{position.owner.orgname}}, contact {{position.owner.fname}} {{position.owner.lname}}</small></p>
+                                    
+                                <p>{{position.description}}</p>
+                                {% if position.match > 79 %}
+                                {%set color = "green" %}
+                                {% elif position.match < 79 and position.match > 49 %}
+                                {% set color = "yellow" %}
+                                {% elif position.match < 49 %}
+                                {% set color = "red" %}
+                                {% endif %}
+                                <span class="badge badge-pill {{color}}">
+                                    <span class="matchbox">{{position.match}}% Match      
+                                </span></span>
+                                {% if user.applied %}
+                                    {% if position in user.applied %}
+                                        <button type="button" class="btn btn-success apply">Applied</button>
+                                    {% else %}
+                                        <a href="/apply/{{position.position_id}}"><button type="button" class="btn btn-primary apply">Apply to this Position</button></a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="/apply/{{position.position_id}}"><button type="button" class="btn btn-primary apply">Apply to this Position</button></a>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+
+
+
+
+
+
+
+    <p>{{user.fname}} {{user.lname}}</p>
+    <p>{{user.address}} {{user.city}} {{user.state}}</p>
+    <p>{{user.email}}</p>
+    <p>Your bio:  {{user.bio}}</p>
+    <p>Your Languages:
+        {% for lang in user.langs%}
+        {{lang.lang_name}}
+        {% endfor %}
+    </p>
+    <br><br>
+    <a href="/dev_landing">Edit resume</a>
+</body>
+</html>

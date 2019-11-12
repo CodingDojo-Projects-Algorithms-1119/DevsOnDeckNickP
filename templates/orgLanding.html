@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DoD Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>           
+        <li class="form-inline nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+    </div>
+    </nav>
+    <!-- content -->
+    <div class="card">
+        <div class="card-header text-center">
+            <h2 class="mx-auto display-5" style="width: 50%;"><b>{{user.orgname}}</b></h2>
+        </div>
+        <div class="card-body border-bottom">
+            <h5 class="card-title text-center">Hello {{user.fname}} {{user.lname}}!</h5>
+            <p class="card-text text-center">Here you can create and post listings while looking for potential candidates for your company.</p> 
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col border-right">
+                        <a href="/org_add_pos"><button type="button" class="btn btn-primary btn-lg btn-block">List A New Position</button></a>
+                        <hr>
+                        <h3>Positions to Fill</h3>
+                        <ul class="ul_pos">
+                        {% for position in positions %}                    
+                        <li><p><a class = "pos_link" href="/position_details/{{position.position_id}}">{{position.name}}</a><br>         
+                            {% if position.applied|length>0 %}
+                            <span class="badge badge-pill badge-primary">
+                            <span class="app_bubble">{{position.applied|length}} applicants</span></span></span><br>
+                            {% endif %}
+                        <span class="pos_date">Posted on {{position.created_at.strftime('%b %d, %Y')}}<br>
+                        <span><a href="/edit_position/{{position.position_id}}">Edit Listing</a> | <a href="/del_position/{{position.position_id}}">Delete Listing</a></span></p>
+                    </li>
+                    <br>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="col-9">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-dark text-center"><h4>Available Developers</h4></li>
+                            {% for dev in devs %}
+                            <li class="list-group-item">
+                                <p><span class="dev_name">{{dev.fname}} {{dev.lname}}</span> 
+                                    <span class="dev_skills">Skillset:
+                                        {% for lang in dev.langs%}
+                                        {{lang.lang_name}} 
+                                        {% endfor %}
+                                    </span></p>
+                                <p>{{dev.bio}}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
+
+</body>
+</html>

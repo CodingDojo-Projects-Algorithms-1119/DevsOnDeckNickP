@@ -1,0 +1,95 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.tab_header{
+    margin-left:  50px;
+}
+.tab_content{
+    margin-left: 75px;
+    margin-right: 50px;
+}
+.tab_back{
+    background-color: #f7f7f7;
+}
+.form-row{
+    margin-bottom: 10px;
+}
+.reg_button{
+    padding: 10px 0 15px 0px;
+}
+.center_nav_text{
+    margin-left: 50%;
+}
+.container-base{
+    margin:0 50px 0 50px;
+}
+.ul_pos{
+    margin-left: 30px;
+}
+.dev_name{
+    font-size: 22px;
+    text-decoration: underline;
+    margin-right: 15px;
+    font-weight: bold;
+    color: blue;
+}
+.dev_name2{
+    font-size: 20px;
+    text-decoration: underline;
+    margin-right: 15px;
+    font-weight: bold;
+    color: blue;
+}
+.dev_skills{
+    font-size: 14pt;
+    /* font-weight: bold; */
+}
+.pos_link{
+    font-size: 16pt;
+    text-decoration: underline;
+}
+.pos_date{
+    font-size: 10pt;
+}
+.matchbox{
+    /* border-style: solid; */
+    font-size: 14pt;
+    padding: 20px 20px 10px 20px;
+    /* margin: 10px; */
+}
+.green{background-color:greenyellow;}
+.yellow{background-color:yellow;}
+.red{background-color:red;}
+.pos_desc{
+    margin-left: 10px;
+}
+.lang_links{
+    font-size: 20px;
+    margin-right: 25px;    
+}
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
+.bio{
+    padding-top: 20px;
+    
+}
+.bio_box{
+    margin-left: 20px;
+}
+.right_side{
+    float: right;
+}
+.blue td{
+    color: blue;    
+}
+.apply{
+    float:right;
+}
+.app_bubble{
+    font-size: 9pt;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Welcome to DevsOnDeck</title>
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/">New User? Click here!</a>
+        </li>          
+        </ul>
+    </div>
+    </nav>
+    <br>
+    <!-- tabbed content -->
+    <div class="container-fluid">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="dev_log-tab" data-toggle="tab" href="#dev_log" role="tab" aria-controls="dev_log" aria-selected="true">Developer Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="org_log-tab" data-toggle="tab" href="#org_log" role="tab" aria-controls="org_log" aria-selected="false">Organization Login</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="dev_log" role="tabpanel" aria-labelledby="dev_log-tab">        
+            <div class="tab_back">
+            <br>
+            <h3 class="tab_header">Welcome Back! Let's Connect You To A Job!</h3>
+            <br>
+            <form class="tab_content" action="/login_check" method="POST">
+                <input type="hidden" name="switch" value="dev">
+                <div class="form-group">
+                    <label>Email: </label><input class="form-control" type="text" name="email" placeholder="Email@address.com">
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                    <label>Password:</label><input class="form-control" type="password" name="password">
+                    </div>
+                </div>
+                <div class="reg_button"><button type="submit" class="btn btn-dark">Login</button></div>
+            </form>
+                    {% with messages = get_flashed_messages() %}    
+                    {% if messages %}                            
+                        {% for message in messages %}           
+                            <p style="color:red">{{message}}</p> 
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}         
+            </div>
+        </div>
+        <div class="tab-pane fade" id="org_log" role="tabpanel" aria-labelledby="org_log-tab">
+            <div class="tab_back">
+            <br>
+            <h4 class="tab_header">Welcome Back! Let's Find You Some Candidates!</h4>
+            <br>
+            <form class="tab_content" action="/login_check" method="POST">
+                <input type="hidden" name="switch" value="org">
+                <div class="form-group">
+                    <label>Email: </label><input class="form-control" type="text" name="email" placeholder="Email@address.com">
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                    <label>Password:</label><input class="form-control" type="password" name="password">
+                    </div>
+                </div>
+                <div class="reg_button"><button type="submit" class="btn btn-dark">Login</button></div>                    
+            </form>
+                        {% with messages = get_flashed_messages() %}    
+                        {% if messages %}                            
+                            {% for message in messages %}           
+                                <p style="color:red">{{message}}</p> 
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}         
+                </div>            
+        </div>
+    </div>
+    </div>    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+    <script>
+            jQuery(document).ready(function($) {
+        
+            // Javascript to enable link to tab
+            var url = document.location.toString();
+            if (url.match('#')) {
+                $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+            } 
+        
+            // Change hash for page-reload
+            $('.nav-tabs a').on('shown.bs.tab', function (e) {
+                window.location.hash = e.target.hash;
+                });
+            }); 
+    </script>
+</body>
+</html>

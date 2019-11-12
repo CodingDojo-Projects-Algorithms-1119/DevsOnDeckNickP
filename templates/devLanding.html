@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to DevsOnDeck</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">          
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <li class="form-inline nav-item">
+                <a class="nav-link" href="/dev_dash">View Listings</a>
+        </li>           
+        <li class="form-inline nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+    </div>
+    </nav>
+    <!-- content -->
+    <div class="card">
+        <div class="card-header text-center">
+            <h2 class="mx-auto display-5" style="width: 50%">{{user.fname}} {{user.lname}}'s Profile</h2>
+        </div>
+        <div class="card-body border-bottom">
+            {% if user.bio %}
+            <h5 class="card-title text-center">Let's edit your profile!</h5>
+            <p class="card-text text-center">Remember to keep your personal biography and skillset up to date!</p>
+            {% else %}
+            <h5 class="card-title text-center">Let's create a profile!</h5>
+            <p class="card-text text-center">This is an important step! Make sure you fill out all fields so prospective employers can find out if you are a good fit for their company.</p>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row border-bottom">
+                    <div class="col-7 border-right"><h2>Pick Your Top Five Languages & Frameworks: </h2>
+                    <br>
+
+                    {% if user.langs|length == 5 %}
+                    {% set trigger = "hidden" %}
+                    {% else %}
+                    {% set trigger = "show" %}
+                    {% endif %}
+                    <table class="table table-bordered" {{trigger}}>
+                    <tbody>
+                        <tr>
+                        <td><a href="/dev_add_lang/1" class="add_languages">HTML</a></td>
+                        <td><a href="/dev_add_lang/2" class="add_languages">CSS</a></td>
+                        <td><a href="/dev_add_lang/3" class="add_languages">Ruby</a></td>
+                        <td><a href="/dev_add_lang/4" class="add_languages">Python</a></td>
+                        </tr>
+                        <tr>
+                        <td><a href="/dev_add_lang/5" class="add_languages">JS</a></td>
+                        <td><a href="/dev_add_lang/6" class="add_languages">Java</a></td>
+                        <td><a href="/dev_add_lang/7" class="add_languages">C#</a></td>
+                        <td><a href="/dev_add_lang/8" class="add_languages">C++</a></td>
+                        </tr>
+                        <td><a href="/dev_add_lang/9" class="add_languages">SQL</a></td>
+                        <td><a href="/dev_add_lang/10" class="add_languages">Django</a></td>
+                        <td><a href="/dev_add_lang/11" class="add_languages">Flask</a></td>
+                        <td><a href="/dev_add_lang/12" class="add_languages">Rails</a>  </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    
+                </div>
+                <div class="col">
+                    {% for lang in user.langs%}
+                    <span class="lang_links"><a href="/dev_remove_lang/{{lang.lang_id}}">{{lang.lang_name}}</a></span>
+                    {% endfor %}
+                    {% if user.lang | length > 0 %}
+                    {{user.langs}}
+                    {% endif %}
+                </div>                
+                </div>
+                <div class="row">
+                    <div class="col-md-auto bio">
+                            <form action="/create_dev_bio" id="dev_bio" method="POST">                
+                                <h2>Short Biography:</h2>    
+                                <div class="bio_box">
+                                {% with messages = get_flashed_messages() %}    
+                                {% if messages %}                            
+                                    {% for message in messages %}           
+                                        <p style="color:red">{{message}}</p> 
+                                    {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                                <textarea class="form-control" form="dev_bio" rows="10" cols="120" placeholder="Add more about yourself and your experience here" name="dev_bio">{%if user.bio%}{{user.bio}}{%endif%}</textarea><br>
+                                <button class="btn btn-primary right_side" type="submit">Save Profile</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!-- <script>
+    $(document).ready(function(){
+        $(".add_languages").click(function(){
+            $.ajax({
+                url: "/dev_add_lang",
+                // data: $("#add_thoughts").serialize()
+            })
+            .done(function(response){
+                $(".new_thought").append(response)
+            })
+            return false
+        })
+    })
+</script> -->

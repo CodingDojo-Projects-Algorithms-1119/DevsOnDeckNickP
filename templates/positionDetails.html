@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{listing.name}}</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='./stylesheet.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><h3>DevsOnDeck</h3></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>           
+        <li class="form-inline nav-item">
+            <a class="nav-link" href="/org_landing">Go back</a>
+        </li>
+    </div>
+    </nav>
+    <!-- content -->
+    <div class="card">
+        <div class="card-header text-center">
+            <h2 class="mx-auto display-5" style="width: 50%"><b>{{listing.name}}</b></h2>
+        </div>
+        <div class="card-body border-bottom">
+            <h5 class="card-title text-center">from {{listing.owner.orgname}}</h5>
+            <p class="card-text text-center">Required Skills:
+                {% for lang in listing.langs %}
+                {{lang.lang_name}}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col border-right">
+                        <p><b>Date Posted:</b> {{listing.created_at.strftime('%b %d, %Y')}}</p>
+                        <p><b>Description:</b><span class="pos_desc">{{listing.description}}</span></p>
+                    </div>
+                    <ul class="col-9">
+                        <li class="list-group-item list-group-item-dark text-center"><h4>Available Developers</h4></li>
+                        {%  for dev in devs|sort(attribute="match", reverse = True) %}
+                        <li class="list-group-item">
+                            <p><span class="dev_name">{{dev.fname}} {{dev.lname}}</span> 
+                                <span class="dev_skills">Skill Set:
+                                    {% for lang in dev.langs%}
+                                    {{lang.lang_name}} 
+                                    {% endfor %}
+                                </span></p>
+                            <p>{{dev.bio}}</p>
+                            {% if dev.match > 79 %}
+                            {%set color = "green" %}
+                            {% elif dev.match < 79 and dev.match > 49 %}
+                            {% set color = "yellow" %}
+                            {% elif dev.match < 49 %}
+                            {% set color = "red" %}
+                            {% endif %}
+                            <span class="badge badge-pill {{color}}"><span class="matchbox">{{dev.match}}% Match</span></span>
+                            {% if listing in dev.applied %}
+                            <span class="badge badge-pill badge-success"><span class="matchbox">Applied for position</span></span>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>    
+    <a href="/org_landing">Go back</a>    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

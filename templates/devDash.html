@@ -95,24 +95,5 @@
             </div>
         </div>
     </div>    
-    
-
-
-
-
-
-
-
-    <p>{{user.fname}} {{user.lname}}</p>
-    <p>{{user.address}} {{user.city}} {{user.state}}</p>
-    <p>{{user.email}}</p>
-    <p>Your bio:  {{user.bio}}</p>
-    <p>Your Languages:
-        {% for lang in user.langs%}
-        {{lang.lang_name}}
-        {% endfor %}
-    </p>
-    <br><br>
-    <a href="/dev_landing">Edit resume</a>
 </body>
 </html>

@@ -172,7 +172,6 @@ def create_dev_bio():
     if is_valid:
         Developer.query.get(session["user_id"]["id"]).bio = request.form["dev_bio"]
         db.session.commit()   
-        flash("Bio Added!")
         return redirect("/dev_dash")
     return redirect("/dev_landing")
 def dev_add_lang(lang_id):

@@ -225,11 +225,14 @@ def dev_dash():
     positions = Position.query.all()
     for position in positions:
         count = 0
-        for poslang in position.langs:
-            for lang in user.langs:
-                if lang.lang_id == poslang.lang_id:
-                    count = count+1
-        match = int(count/(len(position.langs))*100)
+        if position.langs:
+            for poslang in position.langs:
+                for lang in user.langs:
+                    if lang.lang_id == poslang.lang_id:
+                        count = count+1
+            match = int(count/(len(position.langs))*100)
+        else:
+            match = 0
         insert_match = Position.query.get(position.position_id)
         insert_match.match = match
         db.session.commit()    
@@ -342,11 +345,14 @@ def position_details(pos_id):
     devs = Developer.query.all()
     for dev in devs:
         count = 0
-        for lang in listing.langs:
-            for devlang in dev.langs:
-                if lang.lang_id == devlang.lang_id:
-                    count = count+1
-        match = int(count/(len(listing.langs))*100)
+        if listing.langs:
+            for lang in listing.langs:
+                for devlang in dev.langs:
+                    if lang.lang_id == devlang.lang_id:
+                        count = count+1
+            match = int(count/(len(listing.langs))*100)
+        else:
+            match = 0
         insert_match = Developer.query.get(dev.id)
         insert_match.match = match
         db.session.commit()
